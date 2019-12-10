@@ -16,9 +16,11 @@
 
     <properties>
         <!-- 数据库相关 -->
-        <mysql.connector.java.version>6.0.5</mysql.connector.java.version>
+        <mysql.connector.java.version>8.0.11</mysql.connector.java.version>
         <druid.version>1.1.10</druid.version>
-        <mybatis-plus-boot.version>3.3.0</mybatis-plus-boot.version>
+        <mybatis-plus-boot-version>3.3.0</mybatis-plus-boot-version>
+        <mybatis-plus-generator-version>3.3.0</mybatis-plus-generator-version>
+        <mybatis-plus-version>2.1.9</mybatis-plus-version>
     </properties>
 
     <dependencyManagement>
@@ -36,8 +38,18 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus-boot.version}</version>
+            <version>${mybatis-plus-boot-version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-generator-version}</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatis-plus-version}</version>
+        </dependency>-->
     </dependencies>
     </dependencyManagement>
 

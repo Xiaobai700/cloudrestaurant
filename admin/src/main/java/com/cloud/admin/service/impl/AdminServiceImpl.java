@@ -1,6 +1,7 @@
 package com.cloud.admin.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloud.admin.service.AdminService;
 import com.cloud.restaurant.entity.User;
 import com.cloud.restaurant.mapper.UserMapper;
@@ -27,10 +28,13 @@ public class AdminServiceImpl implements AdminService {
         User user1 = new User();
         user1.setUsername(username);
         user1.setPassword(password);
-        User user = userMapper.selectOne(user1);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.setEntity(user1);
+        User user = userMapper.selectOne(queryWrapper);
         if(user != null){
             returnMap.put("code",100);
             returnMap.put("msg","登录成功！");
+            System.out.println("登陆成功！");
         }
         return returnMap;
     }

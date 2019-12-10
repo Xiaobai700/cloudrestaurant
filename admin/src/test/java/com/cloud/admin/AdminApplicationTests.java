@@ -1,5 +1,7 @@
 package com.cloud.admin;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cloud.admin.service.AdminService;
 import com.cloud.restaurant.entity.User;
 import com.cloud.restaurant.mapper.UserMapper;
 import org.junit.Assert;
@@ -16,13 +18,19 @@ import java.util.List;
 public class AdminApplicationTests {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AdminService adminService;
 
     @Test
     public void contextLoads() {
         System.out.println(("----- selectAll method test ------"));
         List<User> userList = userMapper.selectList(null);
-        Assert.assertEquals(5, userList.size());
+        Assert.assertEquals(1, userList.size());
         userList.forEach(System.out::println);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userName","zzz");
+        jsonObject.put("password","zzzz");
+        adminService.login(jsonObject);
     }
 
 }
