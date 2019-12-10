@@ -1,11 +1,13 @@
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
 
@@ -61,11 +63,25 @@ public class MySQLGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
+
         dsc.setUrl(URL);
         // dsc.setSchemaName("public");
         dsc.setDriverName(DRIVER);
         dsc.setUsername(USER_NAME);
         dsc.setPassword(PASSWORD);
+        dsc.setDbType(DbType.MYSQL);
+        dsc.setTypeConvert(new MySqlTypeConvert(){
+            // 自定义数据库表字段类型转换【可选】
+            @Override
+            public DbColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
+                System.out.println("转换类型：" + fieldType);
+                // 注意！！processTypeConvert 存在默认类型转换，如果不是你要的效果请自定义返回、非如下直接返回。
+                if(fieldType.toLowerCase().contains("datetime")){
+                    return DbColumnType.DATE;
+                }
+                return (DbColumnType) super.processTypeConvert(globalConfig, fieldType);
+            }
+        });
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -117,8 +133,10 @@ public class MySQLGenerator {
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
+        //设置不生成Service Controller的代码
+         templateConfig.setService(null);
+         templateConfig.setController(null);
+         templateConfig.setServiceImpl(null);
 
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
@@ -129,13 +147,13 @@ public class MySQLGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
        // strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
         strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
+        //strategy.setRestControllerStyle(true);
         // 公共父类
-        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
+        //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+        //strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setControllerMappingHyphenStyle(true);
+        //strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new VelocityTemplateEngine());

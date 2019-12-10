@@ -2,6 +2,7 @@ package com.cloud.admin.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.admin.service.AdminService;
 import com.cloud.restaurant.entity.User;
 import com.cloud.restaurant.mapper.UserMapper;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @date 2019/9/30 13:54
  */
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends ServiceImpl<UserMapper, User> implements AdminService {
     @Autowired
     private UserMapper userMapper;
 
