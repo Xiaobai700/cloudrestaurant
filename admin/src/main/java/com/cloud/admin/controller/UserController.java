@@ -29,6 +29,7 @@ public class UserController {
     @RequestMapping("/userInfo")
     public List<User> getAllUser(){
         List<User> userList = adminService.list();
+
         return userList;
     }
 }
