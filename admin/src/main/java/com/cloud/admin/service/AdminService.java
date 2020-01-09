@@ -19,4 +19,5 @@ public interface AdminService extends IService<User> {
      * @return: Map
      */
     Map login(JSONObject jsonObject);
+
 }
