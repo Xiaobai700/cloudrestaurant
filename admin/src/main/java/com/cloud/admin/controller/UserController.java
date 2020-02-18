@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.admin.service.AdminService;
 import com.cloud.restaurant.entity.User;
 import com.cloud.restaurant.mapper.UserMapper;
+import io.github.hengyunabc.zabbix.api.ZabbixApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -31,6 +32,8 @@ public class UserController implements ApplicationListener<ContextRefreshedEvent
 
     @Autowired
     private UserMapper userMapper;
+
+
 
     @RequestMapping("/auth")
     public Map login(@RequestBody JSONObject jsonObject) {
